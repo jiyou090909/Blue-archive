@@ -32,7 +32,7 @@
   <p>그림 속에 숨겨진 코드를 입력해 보세요.<br>코드가 맞으면 숨겨진 이미지가 나타납니다.</p>
   <form class="entry" id="codeForm">
     <input id="codeInput" autocomplete="off" placeholder="예: BLUE-01" aria-label="숨겨진 코드">
-    <button type="submit">이미지 발견하기</button>
+    <button type="submit">완료</button>
   </form>
   <div class="hint">힌트: 작품에 숨겨진 영문과 숫자를 확인하세요.</div>
   <section id="result" aria-live="polite"></section>
@@ -59,14 +59,14 @@ form.addEventListener("submit", (event) => {
   if (!item) {
     const error = document.createElement("p");
     error.className = "error";
-    error.textContent = "코드를 찾을 수 없어요. 그림을 다시 살펴봐!";
+    error.textContent = "코드가 일치하지 않아요. 그림을 다시 살펴봐!";
     result.append(error);
     return;
   }
   const card = document.createElement("div");
   card.className = "result-card";
   const heading = document.createElement("h2");
-  heading.textContent = "숨겨진 이미지 발견!";
+  heading.textContent = "당신의 마음속 코발트입니다.";
   const img = document.createElement("img");
   img.src = item.file;
   img.alt = item.title;
