@@ -29,12 +29,12 @@
 <main>
   <div class="eyebrow">INTERACTIVE ART PROJECT</div>
   <h1>BLUE ARCHIVE</h1>
-  <p>그림 속에 숨겨진 코드를 입력해 보세요.<br>코드가 맞으면 숨겨진 이미지가 나타납니다.</p>
+  <p>그림 속에 숨겨진 코드를 입력해 보세요.<br>코드가 일치하면 숨겨진 넘버가 나타납니다.</p>
   <form class="entry" id="codeForm">
     <input id="codeInput" autocomplete="off" placeholder="예: BLUE-01" aria-label="숨겨진 코드">
     <button type="submit">완료</button>
   </form>
-  <div class="hint">힌트: 작품에 숨겨진 영문과 숫자를 확인하세요.</div>
+  <div class="hint">hint: 작품에 숨겨진 영문과 숫자를 확인하세요.</div>
   <section id="result" aria-live="polite"></section>
 <button id="resetButton" type="button" hidden>
   돌아가기
@@ -71,14 +71,14 @@ form.addEventListener("submit", (event) => {
   if (!item) {
     const error = document.createElement("p");
     error.className = "error";
-    error.textContent = "코드가 일치하지 않아요. 그림을 다시 살펴봐!";
+    error.textContent = "코드가 일치하지 않아요. 그림을 다시 살펴보세요!";
     result.append(error);
     return;
   }
   const card = document.createElement("div");
   card.className = "result-card";
   const heading = document.createElement("h2");
-  heading.textContent = "당신의 마음속 코발트입니다.";
+  heading.textContent = "당신의 마음속 블루입니다.";
   const img = document.createElement("img");
   resetButton.hidden = false;
   img.src = item.file;
@@ -89,39 +89,7 @@ form.addEventListener("submit", (event) => {
     note.textContent = "아직 이미지 파일을 넣지 않았어요. 폴더에 " + item.file + " 파일을 추가해 주세요.";
     card.append(note);
   };
-  const link = document.createElement("a");
-  link.className = "download";
-link.href = "#";
-link.removeAttribute("download");
-link.textContent = "인쇄하기";
-
-link.onclick = async (event) => {
-  event.preventDefault();
-
-  try {
-    const response = await fetch(item.file);
-    const blob = await response.blob();
-    const file = new File(
-      [blob],
-      item.file.split("/").pop(),
-      { type: blob.type || "image/png" }
-    );
-
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      await navigator.share({
-        files: [file],
-        title: item.title
-      });
-    } else {
-      alert("이 기기에서는 이미지 공유를 지원하지 않아요.");
-    }
-  } catch (error) {
-    alert("공유할 수 없어요. 다시 시도해 주세요.");
-  }
-};
-  const note = document.createElement("p");
-  note.textContent = "이미지를 저장한 뒤 Fun Print에서 불러와 출력하세요.";
-  card.append(heading, img, link, note);
+card.append(heading, img);
   result.append(card);
 });
 </script>
