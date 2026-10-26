@@ -36,6 +36,9 @@
   </form>
   <div class="hint">힌트: 작품에 숨겨진 영문과 숫자를 확인하세요.</div>
   <section id="result" aria-live="polite"></section>
+<button id="resetButton" type="button" hidden>
+  돌아가기
+</button>
   <footer>BLUE ARCHIVE · Find what the blue is hiding</footer>
 </main>
 <script>
@@ -53,7 +56,13 @@ const artworks = {
 };
 const form = document.getElementById("codeForm");
 const input = document.getElementById("codeInput");
-const result = document.getElementById("result");
+  const resetButton = document.getElementById("resetButton");
+resetButton.addEventListener("click", () => {
+  result.replaceChildren();
+  input.value = "";
+  resetButton.hidden = true;
+  input.focus();
+});
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   const code = input.value.trim().toUpperCase();
@@ -71,6 +80,7 @@ form.addEventListener("submit", (event) => {
   const heading = document.createElement("h2");
   heading.textContent = "당신의 마음속 코발트입니다.";
   const img = document.createElement("img");
+  resetButton.hidden = false;
   img.src = item.file;
   img.alt = item.title;
   img.onerror = () => {
